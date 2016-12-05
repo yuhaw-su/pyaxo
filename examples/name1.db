@@ -1,0 +1,39 @@
+BEGIN TRANSACTION;
+CREATE TABLE conversations (
+                    my_identity TEXT,
+                    other_identity TEXT,
+                    RK TEXT,
+                    HKs TEXT,
+                    HKr TEXT,
+                    NHKs TEXT,
+                    NHKr TEXT,
+                    CKs TEXT,
+                    CKr TEXT,
+                    DHIs_priv TEXT,
+                    DHIs TEXT,
+                    DHIr TEXT,
+                    DHRs_priv TEXT,
+                    DHRs TEXT,
+                    DHRr TEXT,
+                    CONVid TEXT,
+                    Ns INTEGER,
+                    Nr INTEGER,
+                    PNs INTEGER,
+                    ratchet_flag INTEGER,
+                    mode INTEGER);
+INSERT INTO "conversations" VALUES('name1','name2','h7dTY0y0uS2uBWahmT7bAXFSxWsh0uXpg6cnNLJvb4c=','ReOVFpTIdJnXg9/8oO61b04seg/wM0lU1c/fM/rnUuU=','ILkRdtaAqqC3E0AOKt3qr5tvyoirVim0plzO/1BUpRI=','w7ZpXVM5gN9QOcKKvT1bOt7cz0JpOp1h+jZw1WYxL9Q=','FAzmReitTjx/nBoH60bhp6fdQnpNDcf4KLKINTItAlA=','2VeHAijQ107R+ZwMnfJhV3bjryfo66QqhX8+mJpzCLI=','PLhnBps+vzBqEiGOeDwdFHEruznp6UEK2+aTYfIr7Uw=','6Ls48wUK4feUaN/anoHw8WFbn0YtpS4Twn0ccK7t6W4=','T9JcUtAgIOg4LzEG14hvqIlpjsgbH90EXE+LKTHknXk=','tVYDCYmoNN23KGVpgm77gvh7OcFuHtGaLDk43iwr2kg=','r4qozdBRYtYBbSWPCYsRCA/p5Ws7mQAX6pDhEoJAFnE=','LFTHx/zUbOBy6VGnfBT7mBHGRWQQr9FrnFapIy4BCDc=','SCDx+tt8XWPY8W+MM7wyWqQmTJyaeww/mXsR+4iycTI=','RY0zAvmNJSXaH0EP2DmGh4sDLaaA2WkCo6ZTz/yllBE=',4,0,0,0,1);
+CREATE TABLE skipped_mk (
+                    my_identity,
+                    to_identity,
+                    HKr TEXT,
+                    mk TEXT,
+                    timestamp INTEGER);
+CREATE UNIQUE INDEX message_keys
+            ON
+                skipped_mk (mk);
+CREATE UNIQUE INDEX conversation_route
+            ON
+                conversations (
+                    my_identity,
+                    other_identity);
+COMMIT;

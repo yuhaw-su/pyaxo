@@ -1,0 +1,41 @@
+BEGIN TRANSACTION;
+CREATE TABLE conversations (
+                    my_identity TEXT,
+                    other_identity TEXT,
+                    RK TEXT,
+                    HKs TEXT,
+                    HKr TEXT,
+                    NHKs TEXT,
+                    NHKr TEXT,
+                    CKs TEXT,
+                    CKr TEXT,
+                    DHIs_priv TEXT,
+                    DHIs TEXT,
+                    DHIr TEXT,
+                    DHRs_priv TEXT,
+                    DHRs TEXT,
+                    DHRr TEXT,
+                    CONVid TEXT,
+                    Ns INTEGER,
+                    Nr INTEGER,
+                    PNs INTEGER,
+                    ratchet_flag INTEGER,
+                    mode INTEGER);
+INSERT INTO "conversations" VALUES('name2','name1','h7dTY0y0uS2uBWahmT7bAXFSxWsh0uXpg6cnNLJvb4c=','ILkRdtaAqqC3E0AOKt3qr5tvyoirVim0plzO/1BUpRI=','ReOVFpTIdJnXg9/8oO61b04seg/wM0lU1c/fM/rnUuU=','FAzmReitTjx/nBoH60bhp6fdQnpNDcf4KLKINTItAlA=','w7ZpXVM5gN9QOcKKvT1bOt7cz0JpOp1h+jZw1WYxL9Q=','PLhnBps+vzBqEiGOeDwdFHEruznp6UEK2+aTYfIr7Uw=','2VeHAijQ107R+ZwMnfJhV3bjryfo66QqhX8+mJpzCLI=','JyMy5C51rQ4OSkdfEMVoYrwyalkmEPEtPqjili+pkR4=','tVYDCYmoNN23KGVpgm77gvh7OcFuHtGaLDk43iwr2kg=','T9JcUtAgIOg4LzEG14hvqIlpjsgbH90EXE+LKTHknXk=','0','0','LFTHx/zUbOBy6VGnfBT7mBHGRWQQr9FrnFapIy4BCDc=','RY0zAvmNJSXaH0EP2DmGh4sDLaaA2WkCo6ZTz/yllBE=',0,4,0,1,0);
+CREATE TABLE skipped_mk (
+                    my_identity,
+                    to_identity,
+                    HKr TEXT,
+                    mk TEXT,
+                    timestamp INTEGER);
+INSERT INTO "skipped_mk" VALUES('name2','name1','ReOVFpTIdJnXg9/8oO61b04seg/wM0lU1c/fM/rnUuU=','Fe1ho+25i+ZPs3F2a9dqDnQ8C0FYNSzZLg1LS70R8lg=',1480443655);
+INSERT INTO "skipped_mk" VALUES('name2','name1','ReOVFpTIdJnXg9/8oO61b04seg/wM0lU1c/fM/rnUuU=','Mlsks/zDtWDmBhJ1L/3zjXUQzKzHrc296eEblgIecCY=',1480443655);
+CREATE UNIQUE INDEX message_keys
+            ON
+                skipped_mk (mk);
+CREATE UNIQUE INDEX conversation_route
+            ON
+                conversations (
+                    my_identity,
+                    other_identity);
+COMMIT;
